@@ -4,110 +4,638 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GroundUp - Premium Website Creation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
-        * {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-cyan: #00f0ff;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-lime: #84cc16;
+            --glow-cyan: rgba(0, 240, 255, 0.4);
+            --glow-purple: rgba(168, 85, 247, 0.4);
         }
-        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 4px;
+        }
+
+        /* Smooth scroll */
         html {
             scroll-behavior: smooth;
         }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
+
+        /* Grid Background */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
         }
-        
-        @keyframes fadeIn {
+
+        /* Gradient Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: orbFloat 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-pink) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+            opacity: 0.3;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            75% { transform: translate(40px, 20px) scale(1.05); }
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleRise 8s ease-in-out infinite;
+        }
+
+        @keyframes particleRise {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px) scale(1); }
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Glow Effects */
+        .glow-cyan {
+            box-shadow: 0 0 40px var(--glow-cyan), inset 0 0 40px rgba(0, 240, 255, 0.1);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 40px var(--glow-purple), inset 0 0 40px rgba(168, 85, 247, 0.1);
+        }
+
+        .text-glow-cyan {
+            text-shadow: 0 0 30px var(--glow-cyan);
+        }
+
+        .text-glow-purple {
+            text-shadow: 0 0 30px var(--glow-purple);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-animate {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink), var(--accent-cyan));
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            position: relative;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--bg-primary);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            position: relative;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(168, 85, 247, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Animations */
+        .hero-title {
+            opacity: 0;
+            animation: heroReveal 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            opacity: 0;
+            animation: heroReveal 1s ease 0.2s forwards;
+        }
+
+        .hero-cta {
+            opacity: 0;
+            animation: heroReveal 1s ease 0.4s forwards;
+        }
+
+        @keyframes heroReveal {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
-        .glassmorphism {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        
-        .modal-backdrop {
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+
+        /* Widget Cards */
+        .widget-card {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .widget-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), transparent, rgba(168, 85, 247, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .widget-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(0, 240, 255, 0.1);
+        }
+
+        .widget-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Floating Stats Widget */
+        .stats-widget {
+            position: absolute;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 20px;
+            animation: widgetFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes widgetFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        /* Live Metrics */
+        .metric-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-lime));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .hero-title:hover .gradient-text {
-            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
-            transition: filter 0.3s ease;
+        .metric-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
         }
 
-        .option-card {
+        .metric-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 2px;
+            animation: barPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes barPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Animated Counter */
+        .counter {
+            display: inline-block;
+        }
+
+        /* Code Block Widget */
+        .code-widget {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+        }
+
+        .code-line {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .code-line-number {
+            color: rgba(255, 255, 255, 0.2);
+            width: 20px;
+            text-align: right;
+        }
+
+        .code-content {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .code-keyword { color: var(--accent-purple); }
+        .code-string { color: var(--accent-lime); }
+        .code-function { color: var(--accent-cyan); }
+
+        /* Typing Animation */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--accent-cyan);
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Process Timeline */
+        .timeline-connector {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--accent-cyan) 20%, 
+                var(--accent-purple) 50%, 
+                var(--accent-pink) 80%, 
+                transparent
+            );
+            opacity: 0.3;
+        }
+
+        .timeline-dot {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
             transition: all 0.3s ease;
         }
 
-        .option-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 50%;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(0, 240, 255, 0.3);
         }
 
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .faq-answer.open {
-            max-height: 500px;
+            max-height: 300px;
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 32px;
+        }
+
+        /* Option Cards */
+        .option-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .option-card:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 240, 255, 0.1);
+        }
+
+        /* Form Inputs */
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu.active {
+                display: block;
+            }
         }
     </style>
 </head>
-<body class="bg-white text-gray-900">
+<body>
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
+
+    <!-- Gradient Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glassmorphism border-b border-gray-200/50">
+    <nav class="fixed top-0 left-0 right-0 z-50 glass">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#" class="text-2xl font-light tracking-tight">
-                Ground<span class="font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Up</span>
+            <a href="#" class="text-2xl font-bold tracking-tight">
+                <span class="text-white">Ground</span><span class="gradient-text">Up</span>
             </a>
             
-            <!-- Desktop Navigation - Centered -->
-            <div class="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
-                <a href="#clients" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-300">
-                    Clients
-                </a>
-                <a href="#process" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-300">
-                    Process
-                </a>
-                <a href="#about" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-300">
-                    About
-                </a>
-                <a href="#faq" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-300">
-                    FAQ
-                </a>
-                <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-300">
-                    Contact
-                </a>
+            <div class="hidden md:flex items-center gap-10">
+                <a href="#clients" class="nav-link text-sm font-medium">Clients</a>
+                <a href="#process" class="nav-link text-sm font-medium">Process</a>
+                <a href="#about" class="nav-link text-sm font-medium">About</a>
+                <a href="#faq" class="nav-link text-sm font-medium">FAQ</a>
+                <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
             </div>
 
-            <!-- Get Started Button -->
-            <button onclick="openGetStarted()" class="hidden md:block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:shadow-lg hover:shadow-indigo-200 transition-all duration-300">
-                Get Started
+            <button onclick="openGetStarted()" class="hidden md:block btn-primary text-sm">
+                <span>Get Started</span>
             </button>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-900">
+            <button id="mobile-menu-btn" class="md:hidden text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -115,320 +643,459 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden glassmorphism border-t border-gray-200/50">
-            <div class="px-6 py-4 space-y-4">
-                <a href="#clients" class="block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Clients</a>
-                <a href="#process" class="block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Process</a>
-                <a href="#about" class="block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About</a>
-                <a href="#faq" class="block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">FAQ</a>
-                <a href="#contact" class="block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
-                <button onclick="openGetStarted()" class="w-full text-left bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full text-sm font-medium">
-                    Get Started
+        <div id="mobile-menu" class="mobile-menu glass border-t border-white/5">
+            <div class="px-6 py-6 space-y-4">
+                <a href="#clients" class="block text-sm font-medium text-white/60 hover:text-white transition-colors">Clients</a>
+                <a href="#process" class="block text-sm font-medium text-white/60 hover:text-white transition-colors">Process</a>
+                <a href="#about" class="block text-sm font-medium text-white/60 hover:text-white transition-colors">About</a>
+                <a href="#faq" class="block text-sm font-medium text-white/60 hover:text-white transition-colors">FAQ</a>
+                <a href="#contact" class="block text-sm font-medium text-white/60 hover:text-white transition-colors">Contact</a>
+                <button onclick="openGetStarted()" class="w-full btn-primary text-sm mt-4">
+                    <span>Get Started</span>
                 </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 -z-10">
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl"></div>
-        </div>
-
-        <!-- Centered Content -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
-            <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.15] fade-in cursor-default">
-                Does your online presence work as hard as you do?
+            <!-- Live Metrics Widget - Floating -->
+            <div class="stats-widget hidden lg:block" style="top: 15%; left: 5%; animation-delay: 0s;">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs text-white/40 uppercase tracking-wider">Live Sites</span>
+                </div>
+                <div class="metric-value" id="live-counter">247</div>
+                <div class="metric-bar mt-2 w-32">
+                    <div class="metric-bar-fill" style="width: 78%;"></div>
+                </div>
+            </div>
+
+            <!-- Performance Widget - Floating -->
+            <div class="stats-widget hidden lg:block" style="top: 25%; right: 5%; animation-delay: -2s;">
+                <div class="text-xs text-white/40 uppercase tracking-wider mb-2">Avg. Load Time</div>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-3xl font-bold text-white">0.8</span>
+                    <span class="text-sm text-white/40">sec</span>
+                </div>
+                <div class="flex items-center gap-2 mt-2">
+                    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    <span class="text-xs text-green-400">23% faster</span>
+                </div>
+            </div>
+
+            <!-- Code Widget - Floating -->
+            <div class="stats-widget hidden lg:block" style="bottom: 20%; left: 8%; animation-delay: -4s; max-width: 280px;">
+                <div class="code-widget">
+                    <div class="code-line">
+                        <span class="code-line-number">1</span>
+                        <span class="code-content"><span class="code-keyword">const</span> website = <span class="code-function">create</span>({</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-line-number">2</span>
+                        <span class="code-content">  design: <span class="code-string">'stunning'</span>,</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-line-number">3</span>
+                        <span class="code-content">  speed: <span class="code-string">'blazing'</span>,</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-line-number">4</span>
+                        <span class="code-content">  delivery: <span class="code-string">'7 days'</span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-line-number">5</span>
+                        <span class="code-content">});<span class="typing-cursor"></span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uptime Widget - Floating -->
+            <div class="stats-widget hidden lg:block" style="bottom: 25%; right: 8%; animation-delay: -6s;">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-white">99.9%</div>
+                        <div class="text-xs text-white/40">Uptime</div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="hero-title text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 leading-[1.05]">
+                Does your online<br>presence work as<br>
+                <span class="gradient-text-animate">hard as you do?</span>
             </h1>
 
-            <p class="text-lg md:text-xl text-gray-600 font-normal max-w-3xl mx-auto mb-12 fade-in" style="animation-delay: 0.2s;">
-                We build high-performance websites in 7 days. We handle the tech so you can focus on your business.
+            <p class="hero-subtitle text-lg md:text-xl text-white/50 font-light max-w-2xl mx-auto mb-12">
+                We build high-performance websites in <span class="text-white font-medium">7 days</span>. 
+                We handle the tech so you can focus on your business.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in" style="animation-delay: 0.3s;">
-                <button onclick="openGetStarted()" class="group inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full text-sm font-medium hover:shadow-xl hover:shadow-indigo-300 transition-all duration-300 hover:scale-105">
-                    Get Started
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
+            <div class="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openGetStarted()" class="btn-primary text-base">
+                    <span class="flex items-center gap-2">
+                        Get Started
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </span>
                 </button>
 
-                <a href="#clients" class="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-full text-sm font-medium border border-gray-300 hover:border-indigo-400 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                    See How It Works
+                <a href="#clients" class="btn-secondary text-base">
+                    <span>See How It Works</span>
                 </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+                <span class="text-xs text-white/30 uppercase tracking-widest">Scroll</span>
+                <div class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
+                    <div class="w-1 h-2 bg-white/40 rounded-full animate-bounce"></div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Clients Section -->
-    <section id="clients" class="py-32 px-6 bg-white relative overflow-hidden">
+    <section id="clients" class="py-32 px-6 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-6xl font-bold tracking-tight mb-4">
-                    We handle the internet, you handle your business
+            <div class="text-center mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs text-white/60 uppercase tracking-wider">What We Do</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+                    We handle the internet,<br>
+                    <span class="gradient-text">you handle your business</span>
                 </h2>
-                <p class="text-gray-600 text-xl font-normal max-w-2xl mx-auto">
+                <p class="text-white/50 text-lg max-w-2xl mx-auto">
                     Fast delivery. Ongoing maintenance. Complete peace of mind.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Service Card 1 -->
-                <div class="group relative h-full bg-white p-8 rounded-2xl border border-gray-200/50 transition-all duration-500 shadow-lg">
-                    <div class="relative">
-                        <div class="mb-6 w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="widget-card p-8 reveal" style="transition-delay: 0.1s;">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/20 flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Complete Tech Management</h3>
-                        <p class="text-gray-600 font-normal leading-relaxed">
+                        <p class="text-white/50 leading-relaxed mb-6">
                             Your website stays secure, fast, and always online. We handle all the technical details.
                         </p>
+                        <div class="flex items-center gap-4">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-xs font-bold text-black">✓</div>
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-xs font-bold text-black">SSL</div>
+                            </div>
+                            <span class="text-xs text-white/40">24/7 Monitoring</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Service Card 2 -->
-                <div class="group relative h-full bg-white p-8 rounded-2xl border border-gray-200/50 transition-all duration-500 shadow-lg">
-                    <div class="relative">
-                        <div class="mb-6 w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                <!-- Card 2 -->
+                <div class="widget-card p-8 reveal" style="transition-delay: 0.2s;">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 border border-purple-500/20 flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Professional Design</h3>
-                        <p class="text-gray-600 font-normal leading-relaxed">
+                        <p class="text-white/50 leading-relaxed mb-6">
                             Beautiful, mobile-optimized websites that showcase your work and convert visitors into customers.
                         </p>
+                        <div class="flex gap-2">
+                            <div class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 text-white/60">Responsive</div>
+                            <div class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 text-white/60">Modern</div>
+                            <div class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 text-white/60">Fast</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Service Card 3 -->
-                <div class="group relative h-full bg-white p-8 rounded-2xl border border-gray-200/50 transition-all duration-500 shadow-lg">
-                    <div class="relative">
-                        <div class="mb-6 w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                <!-- Card 3 -->
+                <div class="widget-card p-8 reveal" style="transition-delay: 0.3s;">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-500/5 border border-pink-500/20 flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Get Found Online</h3>
-                        <p class="text-gray-600 font-normal leading-relaxed">
+                        <p class="text-white/50 leading-relaxed mb-6">
                             Optimized for Google and local search so customers can easily find and contact you.
                         </p>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-1">
+                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-xs text-white/40">SEO Optimized</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-divider max-w-7xl mx-auto"></div>
+
     <!-- Process Section -->
-    <section id="process" class="py-32 px-6 bg-gradient-to-br from-gray-50 to-indigo-50/30">
+    <section id="process" class="py-32 px-6 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-6xl font-bold tracking-tight mb-4">
-                    How We Work
+            <div class="text-center mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+                    <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs text-white/60 uppercase tracking-wider">Our Process</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+                    How We <span class="gradient-text">Work</span>
                 </h2>
-                <p class="text-gray-600 text-xl font-normal max-w-2xl mx-auto">
+                <p class="text-white/50 text-lg max-w-2xl mx-auto">
                     A simple 3-step process designed for business owners, not tech experts.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-12 relative">
-                <!-- Connection Line -->
-                <div class="hidden md:block absolute top-16 left-[16.66%] right-[16.66%] h-0.5 bg-gradient-to-r from-indigo-200 via-purple-200 to-indigo-200"></div>
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Timeline Connector -->
+                <div class="timeline-connector hidden md:block"></div>
 
                 <!-- Step 1 -->
-                <div class="relative text-center bg-white p-8 rounded-2xl shadow-lg">
-                    <div class="relative inline-flex items-center justify-center w-20 h-20 mb-6 bg-white rounded-full border-2 border-indigo-200 shadow-lg z-10">
-                        <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-                        </svg>
+                <div class="widget-card p-8 text-center reveal" style="transition-delay: 0.1s;">
+                    <div class="relative z-10">
+                        <div class="timeline-dot mx-auto" style="border-color: var(--accent-cyan);">
+                            <span class="text-xl font-bold text-cyan-400">1</span>
+                        </div>
+                        <div class="inline-block px-3 py-1 rounded-full text-xs bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 mb-4">
+                            DAY 1
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Strategy & Discovery</h3>
+                        <p class="text-white/50 leading-relaxed">
+                            We learn about your business, your goals, and your customers. Then we create a clear plan that makes sense for you.
+                        </p>
                     </div>
-                    <p class="text-sm text-indigo-400 font-medium mb-3">DAY 1</p>
-                    <h3 class="text-2xl font-bold mb-4">Strategy & Discovery</h3>
-                    <p class="text-gray-600 font-normal leading-relaxed">
-                        We learn about your business, your goals, and your customers. Then we create a clear plan that makes sense for you.
-                    </p>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="relative text-center bg-white p-8 rounded-2xl shadow-lg">
-                    <div class="relative inline-flex items-center justify-center w-20 h-20 mb-6 bg-white rounded-full border-2 border-purple-200 shadow-lg z-10">
-                        <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                        </svg>
+                <div class="widget-card p-8 text-center reveal" style="transition-delay: 0.2s;">
+                    <div class="relative z-10">
+                        <div class="timeline-dot mx-auto" style="border-color: var(--accent-purple);">
+                            <span class="text-xl font-bold text-purple-400">2</span>
+                        </div>
+                        <div class="inline-block px-3 py-1 rounded-full text-xs bg-purple-500/10 border border-purple-500/20 text-purple-400 mb-4">
+                            DAY 2 TO 6
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">We Build, You Relax</h3>
+                        <p class="text-white/50 leading-relaxed">
+                            Our team handles everything from design to content. You'll see progress updates and give feedback—no coding required.
+                        </p>
                     </div>
-                    <p class="text-sm text-purple-400 font-medium mb-3">DAY 2 TO 6</p>
-                    <h3 class="text-2xl font-bold mb-4">We Build, You Relax</h3>
-                    <p class="text-gray-600 font-normal leading-relaxed">
-                        Our team handles everything from design to content. You'll see progress updates and give feedback—no coding or tech work required from you.
-                    </p>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="relative text-center bg-white p-8 rounded-2xl shadow-lg">
-                    <div class="relative inline-flex items-center justify-center w-20 h-20 mb-6 bg-white rounded-full border-2 border-indigo-200 shadow-lg z-10">
-                        <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
+                <div class="widget-card p-8 text-center reveal" style="transition-delay: 0.3s;">
+                    <div class="relative z-10">
+                        <div class="timeline-dot mx-auto" style="border-color: var(--accent-pink);">
+                            <span class="text-xl font-bold text-pink-400">3</span>
+                        </div>
+                        <div class="inline-block px-3 py-1 rounded-full text-xs bg-pink-500/10 border border-pink-500/20 text-pink-400 mb-4">
+                            DAY 7
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Launch & Ongoing Care</h3>
+                        <p class="text-white/50 leading-relaxed">
+                            Your website goes live, and we stay with you for updates, security, and support. Need changes? We handle it fast.
+                        </p>
                     </div>
-                    <p class="text-sm text-indigo-400 font-medium mb-3">DAY 7</p>
-                    <h3 class="text-2xl font-bold mb-4">Launch & Ongoing Care</h3>
-                    <p class="text-gray-600 font-normal leading-relaxed">
-                        Your website goes live, and we stay with you for updates, security, and support. Need changes? We handle it fast, or show you how to make simple updates yourself.
-                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="py-32 px-6 bg-white">
+    <div class="section-divider max-w-7xl mx-auto"></div>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <!-- Left Side - Content -->
-                <div>
-                    <h2 class="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+                        <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+                        <span class="text-xs text-white/60 uppercase tracking-wider">About Us</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
                         About <span class="gradient-text">GroundUp</span>
                     </h2>
-                    <p class="text-xl text-gray-600 mb-6 leading-relaxed">
+                    <p class="text-lg text-white/50 mb-6 leading-relaxed">
                         We started GroundUp because we saw too many talented business owners losing opportunities simply because they didn't have a professional online presence.
                     </p>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    <p class="text-white/40 mb-8 leading-relaxed">
                         When they tried to fix it, they got stuck with confusing platforms, unexpected bills, or agencies that spoke a language they didn't understand. We knew there had to be a better way.
                     </p>
 
-                    <button onclick="openGetStarted()" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full text-sm font-medium hover:shadow-xl hover:shadow-indigo-300 transition-all duration-300 hover:scale-105">
-                        Get Started
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
+                    <button onclick="openGetStarted()" class="btn-primary">
+                        <span class="flex items-center gap-2">
+                            Get Started
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </span>
                     </button>
                 </div>
 
-                <!-- Right Side - Visual -->
-                <div class="relative">
-                    <div class="bg-white rounded-3xl shadow-2xl p-8 border border-gray-200">
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-2xl font-bold mb-4">Our Values</h3>
-                                <div class="space-y-4">
-                                    <div class="flex items-start gap-3">
-                                        <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold mb-1">Speed</h4>
-                                            <p class="text-sm text-gray-600">We deliver fast without compromising quality</p>
-                                        </div>
-                                    </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <div class="widget-card p-8">
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </span>
+                                Our Values
+                            </h3>
 
-                                    <div class="flex items-start gap-3">
-                                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold mb-1">Partnership</h4>
-                                            <p class="text-sm text-gray-600">We work alongside you, not just for you</p>
-                                        </div>
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30 transition-colors">
+                                    <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
                                     </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Speed</h4>
+                                        <p class="text-sm text-white/40">We deliver fast without compromising quality</p>
+                                    </div>
+                                </div>
 
-                                    <div class="flex items-start gap-3">
-                                        <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold mb-1">Long Term Support</h4>
-                                            <p class="text-sm text-gray-600">We're here for the long haul, not just the launch</p>
-                                        </div>
+                                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-purple-500/30 transition-colors">
+                                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Partnership</h4>
+                                        <p class="text-sm text-white/40">We work alongside you, not just for you</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-pink-500/30 transition-colors">
+                                    <div class="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Long Term Support</h4>
+                                        <p class="text-sm text-white/40">We're here for the long haul, not just the launch</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-3xl -z-10"></div>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-divider max-w-7xl mx-auto"></div>
+
     <!-- FAQ Section -->
-    <section id="faq" class="py-32 px-6 bg-gradient-to-br from-gray-50 to-indigo-50/30">
+    <section id="faq" class="py-32 px-6 relative">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl md:text-6xl font-bold tracking-tight mb-4">
-                    Frequently Asked Questions
+            <div class="text-center mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+                    <div class="w-2 h-2 bg-lime-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs text-white/60 uppercase tracking-wider">FAQ</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+                    Frequently Asked<br><span class="gradient-text">Questions</span>
                 </h2>
-                <p class="text-gray-600 text-xl font-normal">
+                <p class="text-white/50 text-lg">
                     Everything you need to know about working with us
                 </p>
             </div>
 
             <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                    <button onclick="toggleFAQ(1)" class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors">
-                        <h3 class="text-xl font-bold text-gray-900 pr-8">What if I need to make changes later?</h3>
-                        <svg id="faq-icon-1" class="w-6 h-6 text-indigo-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- FAQ 1 -->
+                <div class="faq-item reveal" style="transition-delay: 0.1s;">
+                    <button onclick="toggleFAQ(1)" class="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.02] transition-colors">
+                        <h3 class="text-lg font-semibold pr-8">What if I need to make changes later?</h3>
+                        <svg id="faq-icon-1" class="w-5 h-5 text-cyan-400 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
                     <div id="faq-answer-1" class="faq-answer px-6">
-                        <p class="text-gray-600 leading-relaxed pb-6">
-                            Simple changes are easy—you can either make them yourself through a user-friendly dashboard we'll show you, or just send us a quick message and we'll handle it within 24 hours. Whether it's updating text, adding new images, or changing your hours, we make it hassle-free. Need bigger changes like adding new pages? We're here for that too, and we'll give you a straightforward quote upfront.
+                        <p class="text-white/50 leading-relaxed pb-6">
+                            Simple changes are easy—you can either make them yourself through a user-friendly dashboard we'll show you, or just send us a quick message and we'll handle it within 24 hours. Whether it's updating text, adding new images, or changing your hours, we make it hassle-free.
                         </p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 2 -->
-                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                    <button onclick="toggleFAQ(2)" class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors">
-                        <h3 class="text-xl font-bold text-gray-900 pr-8">Do I need to learn how to use complicated software?</h3>
-                        <svg id="faq-icon-2" class="w-6 h-6 text-indigo-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- FAQ 2 -->
+                <div class="faq-item reveal" style="transition-delay: 0.15s;">
+                    <button onclick="toggleFAQ(2)" class="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.02] transition-colors">
+                        <h3 class="text-lg font-semibold pr-8">Do I need to learn how to use complicated software?</h3>
+                        <svg id="faq-icon-2" class="w-5 h-5 text-cyan-400 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
                     <div id="faq-answer-2" class="faq-answer px-6">
-                        <p class="text-gray-600 leading-relaxed pb-6">
-                            Absolutely not. That's the whole point of working with us—we handle the complicated stuff so you don't have to. You'll never need to touch code, figure out hosting, or learn confusing website builders. If you want to make simple updates yourself (like changing text or swapping photos), we'll show you how in about 5 minutes. But if you prefer to never touch it at all? That's completely fine too. Just tell us what you need and we'll do it.
+                        <p class="text-white/50 leading-relaxed pb-6">
+                            Absolutely not. That's the whole point of working with us—we handle the complicated stuff so you don't have to. You'll never need to touch code, figure out hosting, or learn confusing website builders.
                         </p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 3 -->
-                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                    <button onclick="toggleFAQ(3)" class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors">
-                        <h3 class="text-xl font-bold text-gray-900 pr-8">What happens if something breaks?</h3>
-                        <svg id="faq-icon-3" class="w-6 h-6 text-indigo-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- FAQ 3 -->
+                <div class="faq-item reveal" style="transition-delay: 0.2s;">
+                    <button onclick="toggleFAQ(3)" class="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.02] transition-colors">
+                        <h3 class="text-lg font-semibold pr-8">What happens if something breaks?</h3>
+                        <svg id="faq-icon-3" class="w-5 h-5 text-cyan-400 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
                     <div id="faq-answer-3" class="faq-answer px-6">
-                        <p class="text-gray-600 leading-relaxed pb-6">
-                            This is exactly why we include ongoing maintenance in everything we do. If something breaks, goes offline, or stops working—we fix it immediately, usually before you even notice. We monitor your site 24/7, run automatic backups daily, and keep everything updated and secure. You'll never wake up to a broken website or confusing error messages. And if you ever do see something that doesn't look right, just send us a message and we'll take care of it right away. No tickets, no waiting, no stress.
+                        <p class="text-white/50 leading-relaxed pb-6">
+                            This is exactly why we include ongoing maintenance in everything we do. If something breaks, goes offline, or stops working—we fix it immediately, usually before you even notice. We monitor your site 24/7.
                         </p>
                     </div>
                 </div>
 
-                <!-- FAQ Item 4 -->
-                <div class="faq-item bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                    <button onclick="toggleFAQ(4)" class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors">
-                        <h3 class="text-xl font-bold text-gray-900 pr-8">Are there any hidden fees?</h3>
-                        <svg id="faq-icon-4" class="w-6 h-6 text-indigo-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- FAQ 4 -->
+                <div class="faq-item reveal" style="transition-delay: 0.25s;">
+                    <button onclick="toggleFAQ(4)" class="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.02] transition-colors">
+                        <h3 class="text-lg font-semibold pr-8">Are there any hidden fees?</h3>
+                        <svg id="faq-icon-4" class="w-5 h-5 text-cyan-400 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
                     <div id="faq-answer-4" class="faq-answer px-6">
-                        <p class="text-gray-600 leading-relaxed pb-6">
-                            No surprises, ever. You'll get a clear quote upfront that includes everything: design, development, hosting, security, backups, and ongoing support. The only time you'll pay extra is if you request additional work outside the original scope—and we'll always tell you the cost before doing anything. No surprise bills, no "gotchas," no fine print.
+                        <p class="text-white/50 leading-relaxed pb-6">
+                            No surprises, ever. You'll get a clear quote upfront that includes everything: design, development, hosting, security, backups, and ongoing support. No surprise bills, no "gotchas," no fine print.
                         </p>
                     </div>
                 </div>
@@ -436,42 +1103,48 @@
         </div>
     </section>
 
+    <div class="section-divider max-w-7xl mx-auto"></div>
+
     <!-- Contact Section -->
-    <section id="contact" class="py-32 px-6 bg-white">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-5xl md:text-6xl font-bold tracking-tight mb-4">
-                    Ready to Get Started?
-                </h2>
-                <p class="text-gray-600 text-xl font-normal mb-8">
-                    Choose how you'd like to begin your journey with us.
-                </p>
-                
-                <button onclick="openGetStarted()" class="group inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full text-sm font-medium hover:shadow-xl hover:shadow-indigo-300 transition-all duration-300 hover:scale-105">
-                    Get Started
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+    <section id="contact" class="py-32 px-6 relative">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+                <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                <span class="text-xs text-white/60 uppercase tracking-wider">Ready?</span>
             </div>
+            <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+                Ready to Get <span class="gradient-text">Started?</span>
+            </h2>
+            <p class="text-white/50 text-lg mb-10 max-w-xl mx-auto">
+                Choose how you'd like to begin your journey with us.
+            </p>
+            
+            <button onclick="openGetStarted()" class="btn-primary text-lg">
+                <span class="flex items-center gap-3">
+                    Get Started
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </span>
+            </button>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-gray-200 bg-white">
+    <footer class="py-12 px-6 border-t border-white/5">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <a href="#" class="text-2xl font-light tracking-tight">
-                    Ground<span class="font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Up</span>
+                <a href="#" class="text-2xl font-bold tracking-tight">
+                    <span class="text-white">Ground</span><span class="gradient-text">Up</span>
                 </a>
 
-                <div class="flex gap-8 text-sm text-gray-600">
-                    <a href="#clients" class="hover:text-gray-900 transition-colors">Clients</a>
-                    <a href="#process" class="hover:text-gray-900 transition-colors">Process</a>
-                    <a href="#contact" class="hover:text-gray-900 transition-colors">Contact</a>
+                <div class="flex gap-8 text-sm text-white/40">
+                    <a href="#clients" class="hover:text-white transition-colors">Clients</a>
+                    <a href="#process" class="hover:text-white transition-colors">Process</a>
+                    <a href="#contact" class="hover:text-white transition-colors">Contact</a>
                 </div>
 
-                <div class="text-sm text-gray-600 font-light">
+                <div class="text-sm text-white/30">
                     © 2026 GroundUp. All rights reserved.
                 </div>
             </div>
@@ -479,55 +1152,52 @@
     </footer>
 
     <!-- Get Started Modal -->
-    <div id="get-started-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 modal-backdrop">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+    <div id="get-started-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 modal-backdrop">
+        <div class="modal-content w-full max-w-4xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <!-- Header -->
-            <div class="sticky top-0 bg-white border-b border-gray-200 px-8 py-6 rounded-t-3xl z-10">
+            <div class="sticky top-0 bg-[#12121a] border-b border-white/5 px-8 py-6 rounded-t-[32px] z-10">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-2xl font-semibold">Get Started</h2>
-                        <p class="text-gray-600 text-sm mt-1">Choose how you'd like to begin</p>
+                        <h2 class="text-2xl font-bold">Get Started</h2>
+                        <p class="text-white/40 text-sm mt-1">Choose how you'd like to begin</p>
                     </div>
-                    <button onclick="closeGetStarted()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button onclick="closeGetStarted()" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors">
+                        <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
             </div>
 
-            <!-- Content -->
             <div class="px-8 py-8">
-                <!-- Initial Choice View -->
+                <!-- Choice View -->
                 <div id="choice-view">
                     <div class="grid md:grid-cols-2 gap-6">
-                        <!-- Option 1: Tell us about your project -->
-                        <button onclick="showProjectForm()" class="option-card text-left p-8 rounded-2xl border-2 border-gray-200 hover:border-indigo-400 bg-white">
-                            <div class="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
-                                <svg class="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        <button onclick="showProjectForm()" class="option-card text-left">
+                            <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                             </div>
                             <h3 class="text-xl font-bold mb-2">Tell us about your project</h3>
-                            <p class="text-gray-600">Share your vision, examples, and requirements. We'll get back to you with a tailored plan.</p>
+                            <p class="text-white/40">Share your vision, examples, and requirements. We'll get back to you with a tailored plan.</p>
                         </button>
 
-                        <!-- Option 2: I want to be contacted directly -->
-                        <button onclick="showContactForm()" class="option-card text-left p-8 rounded-2xl border-2 border-gray-200 hover:border-purple-400 bg-white">
-                            <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
-                                <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        <button onclick="showContactForm()" class="option-card text-left">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                                 </svg>
                             </div>
                             <h3 class="text-xl font-bold mb-2">I want to be contacted directly</h3>
-                            <p class="text-gray-600">Schedule a meeting or request an in-person visit. Let's talk face to face.</p>
+                            <p class="text-white/40">Schedule a meeting or request an in-person visit. Let's talk face to face.</p>
                         </button>
                     </div>
                 </div>
 
-                <!-- Project Form View -->
+                <!-- Project Form -->
                 <div id="project-form-view" class="hidden">
-                    <button onclick="showChoiceView()" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors">
+                    <button onclick="showChoiceView()" class="inline-flex items-center gap-2 text-white/40 hover:text-white mb-6 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
@@ -536,63 +1206,63 @@
 
                     <form id="project-form" class="space-y-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">What do you want to do with your website? *</label>
-                            <textarea id="project-description" rows="4" required placeholder="Describe your vision, goals, and what you'd like to achieve..." class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300 resize-none"></textarea>
+                            <label class="block text-sm font-medium text-white/60 mb-2">What do you want to do with your website? *</label>
+                            <textarea rows="4" required placeholder="Describe your vision, goals, and what you'd like to achieve..." class="form-input resize-none"></textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Can you paste some website examples?</label>
-                            <textarea id="website-examples" rows="3" placeholder="Links to websites you like or want to use as inspiration..." class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300 resize-none"></textarea>
+                            <label class="block text-sm font-medium text-white/60 mb-2">Can you paste some website examples?</label>
+                            <textarea rows="3" placeholder="Links to websites you like or want to use as inspiration..." class="form-input resize-none"></textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Your Instagram account</label>
+                            <label class="block text-sm font-medium text-white/60 mb-2">Your Instagram account</label>
                             <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">@</span>
-                                <input type="text" id="instagram" placeholder="yourusername" class="w-full pl-10 pr-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-white/30">@</span>
+                                <input type="text" placeholder="yourusername" class="form-input pl-10">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Attachments</label>
-                            <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-indigo-400 transition-colors cursor-pointer" onclick="document.getElementById('file-upload').click()">
-                                <svg class="w-10 h-10 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            <label class="block text-sm font-medium text-white/60 mb-2">Attachments</label>
+                            <div class="border-2 border-dashed border-white/10 rounded-xl p-6 text-center hover:border-cyan-500/30 transition-colors cursor-pointer" onclick="document.getElementById('file-upload').click()">
+                                <svg class="w-10 h-10 text-white/20 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                 </svg>
-                                <p class="text-gray-600 text-sm">Click to upload or drag and drop</p>
-                                <p class="text-gray-400 text-xs mt-1">PNG, JPG, PDF up to 10MB</p>
+                                <p class="text-white/40 text-sm">Click to upload or drag and drop</p>
+                                <p class="text-white/20 text-xs mt-1">PNG, JPG, PDF up to 10MB</p>
                                 <input type="file" id="file-upload" multiple class="hidden" accept=".png,.jpg,.jpeg,.pdf">
                             </div>
                             <div id="file-list" class="mt-3 space-y-2"></div>
                         </div>
 
-                        <div class="border-t border-gray-200 pt-6">
+                        <div class="border-t border-white/5 pt-6">
                             <h4 class="font-semibold mb-4">Your Contact Information</h4>
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                                    <input type="text" id="project-name" required placeholder="Your full name" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                    <label class="block text-sm font-medium text-white/60 mb-2">Full Name *</label>
+                                    <input type="text" required placeholder="Your full name" class="form-input">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                                    <input type="email" id="project-email" required placeholder="your@email.com" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                    <label class="block text-sm font-medium text-white/60 mb-2">Email *</label>
+                                    <input type="email" required placeholder="your@email.com" class="form-input">
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                                <input type="tel" id="project-phone" required placeholder="+1 (555) 000-0000" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                <label class="block text-sm font-medium text-white/60 mb-2">Phone Number *</label>
+                                <input type="tel" required placeholder="+1 (555) 000-0000" class="form-input">
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl font-medium text-lg hover:shadow-xl hover:shadow-indigo-300 transition-all duration-500">
-                            Submit Project
+                        <button type="submit" class="w-full btn-primary text-lg py-5">
+                            <span>Submit Project</span>
                         </button>
                     </form>
                 </div>
 
-                <!-- Contact Form View -->
+                <!-- Contact Form -->
                 <div id="contact-form-view" class="hidden">
-                    <button onclick="showChoiceView()" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors">
+                    <button onclick="showChoiceView()" class="inline-flex items-center gap-2 text-white/40 hover:text-white mb-6 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
@@ -600,54 +1270,54 @@
                     </button>
 
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">How would you like to be contacted? *</label>
-                        <select id="contact-method" onchange="handleContactMethodChange()" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer">
+                        <label class="block text-sm font-medium text-white/60 mb-2">How would you like to be contacted? *</label>
+                        <select id="contact-method" onchange="handleContactMethodChange()" class="form-input appearance-none cursor-pointer">
                             <option value="">Select an option...</option>
                             <option value="meeting">I want to schedule a meeting</option>
                             <option value="in-person">I want to be contacted in person</option>
                         </select>
                     </div>
 
-                    <!-- Calendly Embed -->
+                    <!-- Calendly -->
                     <div id="calendly-container" class="hidden">
                         <div class="calendly-inline-widget" data-url="https://calendly.com/heloisa-ironhack/30min" style="min-width:320px;height:700px;"></div>
                     </div>
 
-                    <!-- In-Person Contact Form -->
+                    <!-- In-Person Form -->
                     <div id="in-person-form" class="hidden">
                         <form id="in-person-contact-form" class="space-y-6">
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                                    <input type="text" id="inperson-name" required placeholder="Your full name" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                    <label class="block text-sm font-medium text-white/60 mb-2">Full Name *</label>
+                                    <input type="text" required placeholder="Your full name" class="form-input">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                                    <input type="tel" id="inperson-phone" required placeholder="+1 (555) 000-0000" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                    <label class="block text-sm font-medium text-white/60 mb-2">Phone Number *</label>
+                                    <input type="tel" required placeholder="+1 (555) 000-0000" class="form-input">
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                                <input type="email" id="inperson-email" required placeholder="your@email.com" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                <label class="block text-sm font-medium text-white/60 mb-2">Email *</label>
+                                <input type="email" required placeholder="your@email.com" class="form-input">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Business Name *</label>
-                                <input type="text" id="inperson-business" required placeholder="Your business name" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300">
+                                <label class="block text-sm font-medium text-white/60 mb-2">Business Name *</label>
+                                <input type="text" required placeholder="Your business name" class="form-input">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Address *</label>
-                                <textarea id="inperson-address" rows="2" required placeholder="Your business address" class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300 resize-none"></textarea>
+                                <label class="block text-sm font-medium text-white/60 mb-2">Address *</label>
+                                <textarea rows="2" required placeholder="Your business address" class="form-input resize-none"></textarea>
                             </div>
 
-                            <div class="border-t border-gray-200 pt-6">
+                            <div class="border-t border-white/5 pt-6">
                                 <h4 class="font-semibold mb-4">Preferred Visit Day & Time</h4>
                                 <div class="grid md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Day of the Week *</label>
-                                        <select id="inperson-day" required class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer">
+                                        <label class="block text-sm font-medium text-white/60 mb-2">Day of the Week *</label>
+                                        <select required class="form-input appearance-none cursor-pointer">
                                             <option value="">Select a day...</option>
                                             <option value="monday">Monday</option>
                                             <option value="tuesday">Tuesday</option>
@@ -659,8 +1329,8 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Time *</label>
-                                        <select id="inperson-time" required class="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer">
+                                        <label class="block text-sm font-medium text-white/60 mb-2">Preferred Time *</label>
+                                        <select required class="form-input appearance-none cursor-pointer">
                                             <option value="">Select a time...</option>
                                             <option value="morning">Morning (9am - 12pm)</option>
                                             <option value="afternoon">Afternoon (12pm - 5pm)</option>
@@ -670,8 +1340,8 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl font-medium text-lg hover:shadow-xl hover:shadow-indigo-300 transition-all duration-500">
-                                Request Visit
+                            <button type="submit" class="w-full btn-primary text-lg py-5">
+                                <span>Request Visit</span>
                             </button>
                         </form>
                     </div>
@@ -684,20 +1354,60 @@
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
     <script>
+        // Generate Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            document.getElementById('mobile-menu').classList.toggle('active');
         });
 
         // Close mobile menu when clicking a link
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
+                document.getElementById('mobile-menu').classList.remove('active');
             });
         });
 
-        // Get Started Modal Functions
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Counter Animation
+        const animateCounter = (element, target) => {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 20);
+        };
+
+        // Modal Functions
         function openGetStarted() {
             document.getElementById('get-started-modal').classList.remove('hidden');
             document.getElementById('get-started-modal').classList.add('flex');
@@ -719,12 +1429,10 @@
         function showProjectForm() {
             document.getElementById('choice-view').classList.add('hidden');
             document.getElementById('project-form-view').classList.remove('hidden');
-            document.getElementById('contact-form-view').classList.add('hidden');
         }
 
         function showContactForm() {
             document.getElementById('choice-view').classList.add('hidden');
-            document.getElementById('project-form-view').classList.add('hidden');
             document.getElementById('contact-form-view').classList.remove('hidden');
         }
 
@@ -749,24 +1457,20 @@
             document.getElementById('contact-method').value = '';
             document.getElementById('calendly-container').classList.add('hidden');
             document.getElementById('in-person-form').classList.add('hidden');
-            
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => form.reset());
-            
+            document.querySelectorAll('form').forEach(form => form.reset());
             document.getElementById('file-list').innerHTML = '';
         }
 
-        // File upload handling
+        // File upload
         document.getElementById('file-upload').addEventListener('change', function(e) {
             const fileList = document.getElementById('file-list');
             fileList.innerHTML = '';
-            
-            Array.from(e.target.files).forEach((file, index) => {
+            Array.from(e.target.files).forEach(file => {
                 const fileItem = document.createElement('div');
-                fileItem.className = 'flex items-center justify-between bg-gray-50 px-4 py-2 rounded-lg';
+                fileItem.className = 'flex items-center justify-between bg-white/5 px-4 py-2 rounded-lg';
                 fileItem.innerHTML = `
-                    <span class="text-sm text-gray-600 truncate">${file.name}</span>
-                    <span class="text-xs text-gray-400">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                    <span class="text-sm text-white/60 truncate">${file.name}</span>
+                    <span class="text-xs text-white/30">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
                 `;
                 fileList.appendChild(fileItem);
             });
@@ -785,40 +1489,34 @@
             closeGetStarted();
         });
 
-        // Click outside to close modal
+        // Close modal on backdrop click
         document.getElementById('get-started-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeGetStarted();
-            }
+            if (e.target === this) closeGetStarted();
         });
 
-        // FAQ Accordion Toggle
+        // FAQ Toggle
         function toggleFAQ(num) {
             const answer = document.getElementById(`faq-answer-${num}`);
             const icon = document.getElementById(`faq-icon-${num}`);
             const allAnswers = document.querySelectorAll('.faq-answer');
             const allIcons = document.querySelectorAll('[id^="faq-icon-"]');
             
-            allAnswers.forEach((item) => {
-                if (item.id !== `faq-answer-${num}`) {
-                    item.classList.remove('open');
-                }
+            allAnswers.forEach(item => {
+                if (item.id !== `faq-answer-${num}`) item.classList.remove('open');
             });
-            
-            allIcons.forEach((iconEl) => {
-                if (iconEl.id !== `faq-icon-${num}`) {
-                    iconEl.style.transform = 'rotate(0deg)';
-                }
+            allIcons.forEach(iconEl => {
+                if (iconEl.id !== `faq-icon-${num}`) iconEl.style.transform = 'rotate(0deg)';
             });
             
             answer.classList.toggle('open');
-            
-            if (answer.classList.contains('open')) {
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                icon.style.transform = 'rotate(0deg)';
-            }
+            icon.style.transform = answer.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
+
+        // Animate counter on load
+        setTimeout(() => {
+            const counter = document.getElementById('live-counter');
+            if (counter) animateCounter(counter, 247);
+        }, 1000);
     </script>
 </body>
 </html>
