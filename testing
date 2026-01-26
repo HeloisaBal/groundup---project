@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GroundUp - Premium Website Creation</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root { --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: rgba(255, 255, 255, 0.03); --border-subtle: rgba(255, 255, 255, 0.08); --text-primary: #ffffff; --text-secondary: rgba(255, 255, 255, 0.6); --accent-cyan: #00f0ff; --accent-purple: #a855f7; --accent-pink: #ec4899; }
@@ -116,7 +115,7 @@
                         <div class="hero-title inline-flex items-center gap-3 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 mb-8">
                             <span class="text-sm text-white/80"><span class="font-semibold text-white">7-Day Delivery:</span> Your website, ready in a week.</span>
                         </div>
-                        <h1 class="hero-title text-5xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]" style="font-family: 'Lora', serif;">A Website For<br><span class="gradient-text-animate">Everything</span></h1>
+                        <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">A Website For<br><span class="gradient-text-animate">Everything</span></h1>
                         <p class="hero-subtitle text-lg text-white/50 font-light max-w-md mb-8">With our complete web solutions, you have everything you need to grow your business online.</p>
                         <div class="hero-cta flex flex-col sm:flex-row items-start gap-4">
                             <button onclick="openGetStarted()" class="btn-primary btn-primary-wide text-base"><span class="flex items-center gap-2">Get Started<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span></button>
